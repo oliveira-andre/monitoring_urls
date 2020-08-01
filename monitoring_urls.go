@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+import "os"
 
 func main() {
   welcome()
@@ -14,8 +15,10 @@ func main() {
       fmt.Println("initializing the monitoring...")
     case 2:
       fmt.Println("showing logs")
+      os.Exit(0)
     default:
       fmt.Println("not valid value choosed")
+      os.Exit(-1)
   }
 }
 
