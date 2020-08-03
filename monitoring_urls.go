@@ -5,6 +5,9 @@ import "os"
 import "net/http"
 import "time"
 
+const monitoringTimes = 3
+const delay = 5
+
 func main() {
 	welcome()
 
@@ -53,12 +56,12 @@ func monitoring() {
 	urls := []string{"https://alura.com.br/",
 		"https://caelum.com.br"}
 
-	for i := 0; i < 5; i++ {
+	for i := 0; i < monitoringTimes; i++ {
 		for index, url := range urls {
 			checkUrl(index, url)
 		}
 
-		time.Sleep(5 * time.Second)
+		time.Sleep(delay * time.Minute)
 	}
 
 	fmt.Println("")
