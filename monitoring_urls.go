@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 import "os"
+import "net/http"
 
 func main() {
   welcome()
@@ -12,7 +13,7 @@ func main() {
     case 0:
       fmt.Println("exiting")
     case 1:
-      fmt.Println("initializing the monitoring...")
+      monitoring()
     case 2:
       fmt.Println("showing logs")
       os.Exit(0)
@@ -41,4 +42,8 @@ func chooseOption() int {
   fmt.Scan(&choosedOption)
 
   return choosedOption
+}
+
+func monitoring() { 
+  fmt.Println("initializing the monitoring...")
 }
