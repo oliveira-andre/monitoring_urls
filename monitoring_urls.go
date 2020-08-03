@@ -3,6 +3,7 @@ package main
 import "fmt"
 import "os"
 import "net/http"
+import "time"
 
 func main() {
 	welcome()
@@ -52,8 +53,12 @@ func monitoring() {
 	urls := []string{"https://alura.com.br/",
 		"https://caelum.com.br"}
 
-	for i, url := range urls {
-		checkUrl(i, url)
+	for i := 0; i < 5; i++ {
+		for index, url := range urls {
+			checkUrl(index, url)
+		}
+
+		time.Sleep(5 * time.Second)
 	}
 
 	fmt.Println("")
@@ -68,4 +73,5 @@ func checkUrl(index int, url string) {
 	} else {
 		fmt.Println("The website:", url, "is with problems")
 	}
+
 }
