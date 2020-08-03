@@ -6,20 +6,23 @@ import "net/http"
 
 func main() {
 	welcome()
-	showOptions()
-	choosedOption := chooseOption()
 
-	switch choosedOption {
-	case 0:
-		fmt.Println("exiting")
-	case 1:
-		monitoring()
-	case 2:
-		fmt.Println("showing logs")
-		os.Exit(0)
-	default:
-		fmt.Println("not valid value choosed")
-		os.Exit(-1)
+	for {
+		showOptions()
+		choosedOption := chooseOption()
+
+		switch choosedOption {
+		case 0:
+			fmt.Println("exiting")
+			os.Exit(0)
+		case 1:
+			monitoring()
+		case 2:
+			fmt.Println("showing logs")
+		default:
+			fmt.Println("not valid value choosed")
+			os.Exit(-1)
+		}
 	}
 }
 
