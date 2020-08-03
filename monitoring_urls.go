@@ -46,4 +46,6 @@ func chooseOption() int {
 
 func monitoring() { 
   fmt.Println("initializing the monitoring...")
+  url := "www.alura.com.br"
+  resp, err := http.Get(url)
 }
