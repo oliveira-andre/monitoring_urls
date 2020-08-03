@@ -49,8 +49,19 @@ func chooseOption() int {
 
 func monitoring() {
 	fmt.Println("initializing the monitoring...")
-	url := "https://www.alura.com.br"
+	urls := []string{"https://alura.com.br/",
+		"https://caelum.com.br"}
+
+	for i, url := range urls {
+		checkUrl(i, url)
+	}
+
+	fmt.Println("")
+}
+
+func checkUrl(index int, url string) {
 	resp, _ := http.Get(url)
+	fmt.Println("Testing the site number", index, ":", url)
 
 	if resp.StatusCode == 200 {
 		fmt.Println("The website:", url, "is up and running with success!")
