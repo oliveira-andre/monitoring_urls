@@ -62,6 +62,7 @@ func monitoring() {
 		}
 
 		time.Sleep(delay * time.Minute)
+		fmt.Println("")
 	}
 
 	fmt.Println("")
