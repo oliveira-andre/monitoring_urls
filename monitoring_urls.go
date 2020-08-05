@@ -1,12 +1,17 @@
 package main
 
-import "fmt"
-import "os"
-import "net/http"
-import "time"
+import (
+	"fmt"
+	"os"
+	"net/http"
+	"time"
+)
 
-const monitoringTimes = 3
-const delay = 5
+
+const (
+	monitoringTimes = 3
+	delay = 5
+)
 
 func main() {
 	welcome()
@@ -78,4 +83,9 @@ func checkUrl(index int, url string) {
 		fmt.Println("The website:", url, "is with problems")
 	}
 
+}
+
+func getUrls() []string {
+	file, _ := os.Open("urls.txt")
+	return ["teste"]
 }
