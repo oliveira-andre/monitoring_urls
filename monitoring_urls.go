@@ -1,9 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -57,8 +60,7 @@ func chooseOption() int {
 
 func monitoring() {
 	fmt.Println("initializing the monitoring...")
-	urls := []string{"https://alura.com.br/",
-		"https://caelum.com.br"}
+	urls := getUrls()
 
 	for i := 0; i < monitoringTimes; i++ {
 		for index, url := range urls {
@@ -90,12 +92,27 @@ func checkUrl(index int, url string) {
 }
 
 func getUrls() []string {
-	var teste []string
+	var urls []string
 	file, err := os.Open("urls.txt")
 
 	if err != nil {
 		fmt.Println("something goes wrong", err)
 	}
 
-	return teste
+	reader := bufio.NewReader(file)
+
+	for {
+		line, err := reader.ReadString('\n')
+
+		if err == io.EOF {
+			break
+		}
+
+		trimLine := strings.TrimSpace(line)
+		urls = append(urls, trimLine)
+	}
+
+	file.Close()
+
+	return urls
 }
