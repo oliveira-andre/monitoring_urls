@@ -53,11 +53,10 @@ func showOptions() {
 	fmt.Println("0 - exit")
 }
 
-func chooseOption() int {
-	var choosedOption int
+func chooseOption() (choosedOption int) {
 	fmt.Scan(&choosedOption)
 
-	return choosedOption
+	return
 }
 
 func monitoring() {
@@ -74,6 +73,32 @@ func monitoring() {
 	}
 
 	fmt.Println("")
+}
+
+func getUrls() []string {
+	var urls []string
+	file, err := os.Open("urls.txt")
+
+	if err != nil {
+		fmt.Println("something goes wrong", err)
+	}
+
+	defer file.Close()
+
+	reader := bufio.NewReader(file)
+
+	for {
+		line, err := reader.ReadString('\n')
+
+		if err == io.EOF {
+			break
+		}
+
+		trimLine := strings.TrimSpace(line)
+		urls = append(urls, trimLine)
+	}
+
+	return urls
 }
 
 func checkUrl(index int, url string) {
@@ -95,32 +120,6 @@ func checkUrl(index int, url string) {
 
 }
 
-func getUrls() []string {
-	var urls []string
-	file, err := os.Open("urls.txt")
-
-	if err != nil {
-		fmt.Println("something goes wrong", err)
-	}
-
-	reader := bufio.NewReader(file)
-
-	for {
-		line, err := reader.ReadString('\n')
-
-		if err == io.EOF {
-			break
-		}
-
-		trimLine := strings.TrimSpace(line)
-		urls = append(urls, trimLine)
-	}
-
-	file.Close()
-
-	return urls
-}
-
 func setLog(url string, status bool) {
 	file, err := os.OpenFile("tmp/log.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 
@@ -128,12 +127,12 @@ func setLog(url string, status bool) {
 		fmt.Println("something goes wrong", err)
 	}
 
+	defer file.Close()
+
 	formatedCurrentTime := time.Now().Format("02/01/2006 15:04:05")
 	strStatus := strconv.FormatBool(status)
 	logMessage := formatedCurrentTime + " - " + url + " - online: " + strStatus + "\n"
 	file.WriteString(logMessage)
-
-	file.Close()
 }
 
 func getLogs() {
