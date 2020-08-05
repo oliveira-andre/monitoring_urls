@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -120,11 +121,12 @@ func getUrls() []string {
 }
 
 func setLog(url string, status bool) {
-	file, err := os.OpenFile("tmp/log.txt", os.O_RDWR | os.O_CREATE, 0666)
+	file, err := os.OpenFile("tmp/log.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 
 	if err != nil {
 		fmt.Println("something goes wrong", err)
 	}
 
-	file.
+	file.WriteString(url + "- online: " + strconv.FormatBool(status) + "\n")
+	file.Close()
 }
