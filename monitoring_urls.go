@@ -2,15 +2,14 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"net/http"
+	"os"
 	"time"
 )
 
-
 const (
 	monitoringTimes = 3
-	delay = 5
+	delay           = 5
 )
 
 func main() {
@@ -74,7 +73,12 @@ func monitoring() {
 }
 
 func checkUrl(index int, url string) {
-	resp, _ := http.Get(url)
+	resp, err := http.Get(url)
+
+	if err != nil {
+		fmt.Println("something goes wrong", err)
+	}
+
 	fmt.Println("Testing the site number", index, ":", url)
 
 	if resp.StatusCode == 200 {
@@ -86,6 +90,12 @@ func checkUrl(index int, url string) {
 }
 
 func getUrls() []string {
-	file, _ := os.Open("urls.txt")
-	return ["teste"]
+	var teste []string
+	file, err := os.Open("urls.txt")
+
+	if err != nil {
+		fmt.Println("something goes wrong", err)
+	}
+
+	return teste
 }
