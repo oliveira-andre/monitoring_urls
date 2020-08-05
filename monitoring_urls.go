@@ -84,8 +84,10 @@ func checkUrl(index int, url string) {
 	fmt.Println("Testing the site number", index, ":", url)
 
 	if resp.StatusCode == 200 {
+		setLog(url, true)
 		fmt.Println("The website:", url, "is up and running with success!")
 	} else {
+		setLog(url, false)
 		fmt.Println("The website:", url, "is with problems")
 	}
 
@@ -115,4 +117,14 @@ func getUrls() []string {
 	file.Close()
 
 	return urls
+}
+
+func setLog(url string, status bool) {
+	file, err := os.OpenFile("tmp/log.txt", os.O_RDWR | os.O_CREATE, 0666)
+
+	if err != nil {
+		fmt.Println("something goes wrong", err)
+	}
+
+	file.
 }
