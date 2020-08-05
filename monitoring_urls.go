@@ -127,6 +127,9 @@ func setLog(url string, status bool) {
 		fmt.Println("something goes wrong", err)
 	}
 
-	file.WriteString(url + "- online: " + strconv.FormatBool(status) + "\n")
+	formatedCurrentTime := time.Now().Format("02/01/2006 15:04:05")
+	strStatus := strconv.FormatBool(status)
+	logMessage := formatedCurrentTime + " - " + url + " - online: " + strStatus + "\n"
+	file.WriteString(logMessage)
 	file.Close()
 }
